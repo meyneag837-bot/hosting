@@ -37,21 +37,23 @@ if url:
     with st.spinner("⏳ កំពុងទម្លុះប្រព័ន្ធសុវត្ថិភាព និងវិភាគទិន្នន័យវីដេអូ..."):
         
         # ការកំណត់កម្រិតខ្ពស់ដើម្បី Bypass / ដោះស្រាយ HTTP Error 403
-        ydl_opts = {
+       ydl_opts = {
             'format': 'bestvideo+bestaudio/best' if "tiktok.com" not in url else 'best',
             'outtmpl': 'downloads/%(title)s.%(ext)s',
             'merge_output_format': 'mp4',
             'quiet': True,
             'no_warnings': True,
-            # បន្ថែម Header ដើម្បីបន្លំប្រព័ន្ធថាជាមនុស្សពិតកំពុងប្រើប្រាស់ Browser
+            
+            # 🔗 បន្ថែម Proxy នៅទីនេះ (អ្នកអាចប្រើប្រាស់ Free proxy ឬ Proxy ផ្ទាល់ខ្លួនរបស់អ្នក)
+            # ឧទាហរណ៍៖ 'proxy': 'http://username:password@openproxy.com:port'
+            # ឬប្រើប្រាស់ទម្រង់សាមញ្ញ៖ 'proxy': 'http://IP_Address:Port'
+            
             'http_headers': {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp/*;q=0.8',
                 'Accept-Language': 'en-US,en;q=0.5',
-                'Sec-Fetch-Mode': 'navigate',
             }
         }
-        
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(url, download=False)
